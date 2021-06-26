@@ -29,6 +29,27 @@ router.get("/tarea", (req, res) => {
   });
 });
 
+router.put("/tarea",(req,res)=>{
+  let body = req.body
+  TareaSchema.updateOne({_id:body._id},{
+    $set: req.body
+  },function(error, info) {
+            if (error) {
+                res.json({
+                    resultado: false,
+                    msg: 'No se pudo modificar el cliente',
+                    err
+                });
+            } else {
+                res.json({
+                    resultado: true,
+                    info: info
+                })
+            }
+        })
+
+})
+
 router.delete("/tarea/:id", async (req, res) => {
   // res.send(`Se elimino ${req.params.perId}`);
   let pId = req.params.id;
